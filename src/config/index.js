@@ -1,10 +1,10 @@
 'use strict';
 
 const app = require('express')();
-const harbor = require('harbor-js');
+const strongsailor = require('strongsailor');
 
-// Harbor-js
-// Harbor create "routes" and setup "middlewares", "policies", "cors" and "environments"
-harbor.serve(app);
+// StrongSailor
+// StrongSailor create "routes" and setup "middlewares", "policies", "cors" and "environments"
+strongsailor.serve(app);
 
 module.exports = app;
