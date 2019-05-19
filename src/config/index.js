@@ -1,10 +1,10 @@
 'use strict';
 
 const app = require('express')();
-const strongsailor = require('strongsailor');
+const loopsailor = require('loopsailor');
 
-// StrongSailor
-// StrongSailor create "routes" and setup "middlewares", "policies", "cors" and "environments"
-strongsailor.serve(app);
+// LoopSailor
+// LoopSailor create "routes" and setup "middlewares", "policies", "cors" and "environments"
+loopsailor.serve(app);
 
 module.exports = app;

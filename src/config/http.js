@@ -3,8 +3,7 @@
 /**
  * HTTP Server Settings
  *
- * Configuration for the underlying HTTP server in harbbor-js.
- *
+ * Configuration for the underlying HTTP server in LoopSailor
  */
 
 module.exports = {
@@ -16,7 +15,7 @@ module.exports = {
       'compression',
       'expressHystrix',
       'XGlobalTransactionId',
-      'errorhandler',
+      'ignoreFavicon',
     ],
   },
 };

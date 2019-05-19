@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Harbbor-js Log Settings
+ * LoopSailor Log Settings
  *
  * Configure the log level for your app
  */
@@ -9,10 +9,10 @@
 module.exports = {
   /** ************************************************************************** *
    *                                                                             *
-   * `level` configs: i.e. the minimum log level to capture with harbbor.log.*() *                                                          *
+   * `level` configs: i.e. the minimum log level to capture                      *
    *                                                                             *
    * The order of precedence for log levels from lowest to highest is:           *
-   * `off`, `debug`, `info`,`warn`, `error`, `fatal`                             *
+   * `off`, `debug`, `info`,`warn`, `error`                                      *
    *                                                                             *
    * You may also set the level to `off` to suppress all logs.                   *
    *                                                                             *

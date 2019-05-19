@@ -8,7 +8,7 @@
  * Any controller file (e.g. `api/controllers/authenticated.js`) can be accessed
  * below by its filename and his method, (e.g. "authenticated.login")
  *
- * If harbbor-js receives a URL that doesn't match any of the routes below,
+ * If LoopSailor receives a URL that doesn't match any of the routes below,
  * The default 404 handler is triggered.
  */
 
