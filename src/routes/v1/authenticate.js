@@ -10,7 +10,7 @@ module.exports = middlewares => {
     middlewares.forEach(middleware => router.use(middleware));
   }
 
-  router.get('/', controller.login);
+  router.get('/', controller.authenticate);
   router.get('/jwt-generator', controller.jwtGenerator);
   router.get('/jwt-revoke', controller.jwtRevoke);
 

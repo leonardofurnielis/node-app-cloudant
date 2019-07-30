@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const Schema = new mongoose.Schema(
   {
-    token: {
+    jwt: {
       index: true,
       type: String,
       required: true,

@@ -5,7 +5,7 @@ const jwtDecode = require('jwt-decode');
 const { ObjectId } = require('mongodb');
 const _ = require('lodash');
 
-const AccessTokenModel = require('../../models/v1/accessToken');
+const AccessTokenModel = require('../../models/v1/access_token');
 const UserModel = require('../../models/v1/users');
 
 const authenticate = async (req, res, next) => {
@@ -43,7 +43,7 @@ const jwtGenerator = async (req, res, next) => {
     const token = jwt.sign(payload, process.env.SECRET);
     const accessToken = new AccessTokenModel({
       _id,
-      token,
+      jwt: token,
       serial: payload.serial,
     });
     await accessToken.save();
@@ -62,7 +62,7 @@ const jwtRevoke = async (req, res, next) => {
     const token = req.headers.authorization;
 
     const http_response = await AccessTokenModel.findOneAndUpdate(
-      { token },
+      { jwt: token },
       { $set: { active: false } },
       { new: true }
     );
