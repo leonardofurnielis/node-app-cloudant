@@ -43,12 +43,10 @@ invoke(app, __dirname);
 // HTTP 404 handler
 app.use((req, res) => {
   const error = {
-    message: `The Requested URL ('${req.path}') was not found on this server.`,
-    details: {},
-    http_response: {
-      message:
-        'We could not find the resource you requested. Please refer to the documentation for the list of resources.',
+    error: {
       code: 404,
+      message: 'NOT FOUND',
+      details: `The Requested ${req.method} to URL ('${req.path}') was not found on this server`,
     },
   };
   res.status(404).send(error);

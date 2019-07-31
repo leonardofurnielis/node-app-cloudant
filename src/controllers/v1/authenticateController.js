@@ -24,10 +24,9 @@ const authenticate = async (req, res, next) => {
     });
 
     const http_response = { jwt: `${token}` };
-    http_response.http_response = { message: 'OK', code: 200 };
     return res.status(200).json(http_response);
   } catch (err) {
-    err.status_code = 401;
+    err.status = 401;
     next(err);
   }
 };
@@ -49,10 +48,9 @@ const jwtGenerator = async (req, res, next) => {
     await accessToken.save();
 
     const http_response = { jwt: `${token}` };
-    http_response.http_response = { message: 'OK', code: 200 };
     return res.status(200).json(http_response);
   } catch (err) {
-    err.status_code = 401;
+    err.status = 401;
     next(err);
   }
 };
@@ -67,10 +65,9 @@ const jwtRevoke = async (req, res, next) => {
       { new: true }
     );
 
-    http_response.http_response = { message: 'OK', code: 200 };
     return res.status(200).json(http_response);
   } catch (err) {
-    err.status_code = 401;
+    err.status = 401;
     next(err);
   }
 };
