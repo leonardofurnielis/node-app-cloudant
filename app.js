@@ -1,8 +1,6 @@
 'use strict';
 
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
@@ -28,12 +26,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(morgan('dev', { skip: (req, res) => res.statusCode <= 400 }));
-app.use(
-  morgan('common', {
-    stream: fs.createWriteStream(path.join(__dirname, './tmp/access.log'), { flags: 'a' }),
-    skip: (req, res) => res.statusCode <= 400,
-  })
-);
 
 app.use(xGlobalTransactionId());
 
