@@ -1,4 +1,4 @@
-# node-simple
+# sample-node
 
 ## Table of Contents
 

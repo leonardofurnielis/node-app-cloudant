@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "node-simple",
+      "name": "sample-node",
       "script": "bin/www",
       "exec_mode": "fork",
       "env": {

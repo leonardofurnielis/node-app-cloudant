@@ -39,7 +39,7 @@ log4js.configure({
   },
 });
 
-module.exports = (name = 'node-simple') => {
+module.exports = (name = 'sample-node') => {
   const logger = log4js.getLogger(name);
   logger.level = process.env.LOGGER_LEVEL;
 
