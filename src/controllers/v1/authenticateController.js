@@ -23,8 +23,7 @@ const authenticate = async (req, res, next) => {
       expiresIn: '8h',
     });
 
-    const http_response = { jwt: `${token}` };
-    return res.status(200).json(http_response);
+    return res.status(200).json({ jwt: `${token}` });
   } catch (err) {
     err.status = 401;
     next(err);
@@ -47,8 +46,7 @@ const jwtGenerator = async (req, res, next) => {
     });
     await accessToken.save();
 
-    const http_response = { jwt: `${token}` };
-    return res.status(200).json(http_response);
+    return res.status(200).json({ jwt: `${token}` });
   } catch (err) {
     err.status = 401;
     next(err);

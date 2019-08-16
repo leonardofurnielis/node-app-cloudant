@@ -3,10 +3,7 @@
     {
       "name": "sample-node",
       "script": "bin/www",
-      "exec_mode": "fork",
-      "env": {
-        "NODE_ENV": "production"
-      }
+      "exec_mode": "fork"
     }
   ]
 }

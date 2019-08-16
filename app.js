@@ -9,7 +9,6 @@ const passport = require('passport');
 const morgan = require('morgan');
 const httpErrorHandler = require('http-json-error-handler');
 
-const xGlobalTransactionId = require('./lib/middlewares/XGlobalTransactionId');
 const ignoreFavicon = require('./lib/middlewares/ignoreFavicon');
 
 const app = express();
@@ -26,8 +25,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(morgan('dev', { skip: (req, res) => res.statusCode <= 400 }));
-
-app.use(xGlobalTransactionId());
 
 // Server initialization
 invoke(app, __dirname);

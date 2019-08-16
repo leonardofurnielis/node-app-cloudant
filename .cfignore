@@ -1,7 +1,4 @@
-/node_modules
-
 /.vscode
-
+/node_modules
 /coverage
-
 /tmp

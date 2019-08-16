@@ -52,7 +52,7 @@ const Schema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlength: 4,
+      minlength: 1,
     },
   },
   { collection: 'users', timestamps: true }
