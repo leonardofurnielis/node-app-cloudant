@@ -5,14 +5,14 @@
 const express = require('express');
 // const swaggerUi = require('swagger-ui-express');
 
-// const isLoggedIn = require('./../src/policies/isLoggedIn');
-// const basicAuth = require('../lib/middlewares/www_basicAuth');
-// const swaggerDocument = require('../docs/swagger.json');
+// const isLoggedIn = require('./../src/policies/logged');
+// const basicAuth = require('../lib/middlewares/www-basic-auth');
+// const swaggerDocument = require('../swagger/swagger.json');
 
 const routerV1 = express.Router();
 
 const invokeRoutes = app => {
-  const authenticate = require('../src/routes/v1/authenticate');
+  const authenticate = require('../src/routes/authenticate/v1');
 
   routerV1.use('/authenticate', authenticate());
 

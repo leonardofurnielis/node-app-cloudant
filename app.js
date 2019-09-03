@@ -7,9 +7,9 @@ const helmet = require('helmet');
 const compression = require('compression');
 const passport = require('passport');
 const morgan = require('morgan');
-const httpErrorHandler = require('http-json-error-handler');
+const errorHandler = require('http-json-error-handler');
 
-const ignoreFavicon = require('./lib/middlewares/ignoreFavicon');
+const ignoreFavicon = require('./lib/middlewares/ignore-favicon');
 
 const app = express();
 const invoke = require('./invoke');
@@ -42,6 +42,6 @@ app.use((req, res) => {
 });
 
 // HTTP error handler
-app.use(httpErrorHandler(process.env.NODE_ENV));
+app.use(errorHandler({ stderr: true }));
 
 module.exports = app;

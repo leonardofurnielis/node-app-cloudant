@@ -6,8 +6,8 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 
 module.exports = passport => {
-  const UserModel = require('../src/models/v1/users');
-  const AccessTokenModel = require('../src/models/v1/access_token');
+  const UsersV1 = require('../src/models/users/v1');
+  const AccessTokenV1 = require('../src/models/access-token/v1');
 
   const opts = {};
   opts.jwtFromRequest = ExtractJwt.fromHeader('authorization');
@@ -17,14 +17,14 @@ module.exports = passport => {
     new JwtStrategy(opts, async (jwtPayload, done) => {
       try {
         if (jwtPayload.aud === 'USER') {
-          const user = await UserModel.findById(jwtPayload._id);
+          const user = await UsersV1.findById(jwtPayload._id);
 
           if (user && user.active === true) {
             return done(null, user);
           }
           done(null, false);
         } else if (jwtPayload.aud === 'APPLICATION') {
-          const accessToken = await AccessTokenModel.findById(jwtPayload._id);
+          const accessToken = await AccessTokenV1.findById(jwtPayload._id);
 
           if (accessToken && accessToken.active === true) {
             return done(null, accessToken);

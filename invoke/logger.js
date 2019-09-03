@@ -1,7 +1,7 @@
 'use strict';
 
-const log4js = require('log4js');
 const path = require('path');
+const log4js = require('log4js');
 
 log4js.configure({
   appenders: {

@@ -5,8 +5,8 @@ const jwtDecode = require('jwt-decode');
 const { ObjectId } = require('mongodb');
 const _ = require('lodash');
 
-const AccessTokenModel = require('../../models/v1/access_token');
-const UserModel = require('../../models/v1/users');
+const AccessTokenV1 = require('../../models/access-token/v1');
+const UsersV1 = require('../../models/users/v1');
 
 const authenticate = async (req, res, next) => {
   try {
@@ -15,7 +15,7 @@ const authenticate = async (req, res, next) => {
       .toString()
       .split(':');
 
-    const user = await UserModel.findByCredentials(username, password);
+    const user = await UsersV1.findByCredentials(username, password);
     const payload = _.pick(user, ['_id', 'serial', 'username', 'fullname', 'group', 'active']);
     payload.aud = 'USER';
 
@@ -39,7 +39,7 @@ const jwtGenerator = async (req, res, next) => {
     payload.aud = 'APPLICATION';
 
     const token = jwt.sign(payload, process.env.SECRET);
-    const accessToken = new AccessTokenModel({
+    const accessToken = new AccessTokenV1({
       _id,
       jwt: token,
       serial: payload.serial,
@@ -57,7 +57,7 @@ const jwtRevoke = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
 
-    const http_response = await AccessTokenModel.findOneAndUpdate(
+    const http_response = await AccessTokenV1.findOneAndUpdate(
       { jwt: token },
       { $set: { active: false } },
       { new: true }

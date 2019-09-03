@@ -5,11 +5,11 @@
 const passport = require('passport');
 const fs = require('fs');
 
-const bootstrap = require('./bootstrap');
-const invokeLogger = require('./logger');
 const invokeEnvironment = require('./environment');
-const invokeRoutes = require('./routes');
+const invokeLogger = require('./logger');
+const bootstrap = require('./bootstrap');
 const passportJwt = require('./passport');
+const invokeRoutes = require('./routes');
 
 const invoke = async (app, dirname) => {
   if (!fs.existsSync(`${dirname}/tmp`)) {
