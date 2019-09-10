@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const passport = require('passport');
 const morgan = require('morgan');
-const errorHandler = require('http-json-error-handler');
+const errorhandler = require('request-json-errorhandler');
 
 const ignoreFavicon = require('./lib/middlewares/ignore-favicon');
 
@@ -42,6 +42,6 @@ app.use((req, res) => {
 });
 
 // HTTP error handler
-app.use(errorHandler({ stderr: true }));
+app.use(errorhandler({ log: true, debug: true }));
 
 module.exports = app;
