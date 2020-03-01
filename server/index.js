@@ -31,14 +31,14 @@ module.exports = {
       console.error(err);
     });
 
-    server.listen(Number(process.env.PORT || 3002), '0.0.0.0', () => {
+    server.listen(Number(process.env.PORT || 3000), '0.0.0.0', () => {
       console.info(
-        `Server is running on: http://${server.address().address}:${process.env.PORT || 3002}`
+        `Server is running on: http://${server.address().address}:${process.env.PORT || 3000}`
       );
 
       console.info(
-        `Swagger-UI is running on: http://${server.address().address}:${process.env.PORT ||
-        3002}/explorer`
+        `OpenAPI-UI is running on: http://${server.address().address}:${process.env.PORT ||
+        3000}/explorer`
       );
       console.info('To shut down, press <CTRL> + C at any time.');
     });
