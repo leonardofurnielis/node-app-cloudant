@@ -5,19 +5,13 @@ const validator = require('validator');
 
 const Schema = new mongoose.Schema(
   {
-    serial: {
-      index: true,
-      unique: true,
-      type: String,
-      trim: true,
-    },
     username: {
       type: String,
       index: true,
       required: true,
       trim: true,
       unique: true,
-      minlength: 3,
+      minlength: 5,
       lowercase: true,
     },
     fullname: {
@@ -35,24 +29,34 @@ const Schema = new mongoose.Schema(
       lowercase: true,
       validate: {
         validator: validator.isEmail,
-        message: 'The {VALUE} is not an email',
+        message: '{VALUE} is not an email',
       },
     },
-    group: {
+    acl: {
       type: String,
       index: true,
       required: true,
       enum: ['admin', 'manager', 'editor', 'viewer'],
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 1,
     },
     active: {
       type: Boolean,
       index: true,
       default: true,
     },
-    password: {
-      type: String,
-      required: true,
-      minlength: 1,
+    created_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      index: true,
+      ref: 'users',
+    },
+    updated_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      index: true,
+      ref: 'users',
     },
   },
   { collection: 'users', timestamps: true }

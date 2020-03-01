@@ -1,47 +1,13 @@
 'use strict';
 
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const helmet = require('helmet');
-const compression = require('compression');
-const passport = require('passport');
-const morgan = require('morgan');
-const errorhandler = require('request-json-errorhandler');
 
-const ignoreFavicon = require('./lib/middlewares/ignore-favicon');
+const server = require('./src/server');
 
-const app = express();
-const invoke = require('./invoke');
+async function startServer() {
+  const app = express();
 
-// Middlewares
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(ignoreFavicon());
-app.use(helmet());
-app.use(compression());
-app.use(passport.initialize());
-app.use(passport.session());
+  server.listen(app);
+}
 
-app.use(morgan('dev', { skip: (req, res) => res.statusCode <= 400 }));
-
-// Server initialization
-invoke(app, __dirname);
-
-// HTTP 404 handler
-app.use((req, res) => {
-  const error = {
-    error: {
-      code: 404,
-      message: 'NOT FOUND',
-      details: `The Requested ${req.method} to URL ('${req.path}') was not found on this server`,
-    },
-  };
-  res.status(404).send(error);
-});
-
-// HTTP error handler
-app.use(errorhandler({ log: true, debug: true }));
-
-module.exports = app;
+startServer();

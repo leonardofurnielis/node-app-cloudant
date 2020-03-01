@@ -5,9 +5,8 @@
 const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 
-const schema = require('../../../datastores/schemas/users/v1');
-const serialGenerator = require('../../../lib/helpers/serial');
-const connection = require('../../../datastores/connections/mongodb')('db-south');
+const schema = require('../schemas/users');
+const connection = require('../../server/datastores/connections/mongodb')('db-south');
 
 schema.methods.toJSON = function() {
   const user = this;
@@ -36,7 +35,6 @@ schema.statics.findByCredentials = function(username, password) {
 };
 
 schema.pre('save', function(next) {
-  this.serial = serialGenerator();
   if (this.isModified('password')) {
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(this.password, salt, (error, hash) => {
