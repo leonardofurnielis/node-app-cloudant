@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "node-boilerplate",
-      "script": "bin/www",
+      "script": "app.js",
       "exec_mode": "fork"
     }
   ]

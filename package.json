@@ -1,18 +1,18 @@
 {
-  "name": "sample-node",
+  "name": "node-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "bin/www",
+  "main": "app.js",
   "scripts": {
     "start": "./node_modules/.bin/pm2-runtime pm2.json",
-    "dev": "nodemon bin/www",
+    "dev": "nodemon app.js",
     "lint": "eslint **/*.js",
     "test": "jest --coverage"
   },
   "engines": {
-    "node": "10.x"
+    "node": "12.x"
   },
-  "author": "Leonardo Furnielis <leonardo.furnielis1@gmail.com>",
+  "author": "Leonardo Furnielis <leonardofurnielis@outlook.com>",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "2.4.3",
