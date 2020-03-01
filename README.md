@@ -1,4 +1,4 @@
-# sample-node
+# node-boilerplate
 
 ## Table of Contents
 

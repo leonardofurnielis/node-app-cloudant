@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "sample-node",
+      "name": "node-boilerplate",
       "script": "bin/www",
       "exec_mode": "fork"
     }
