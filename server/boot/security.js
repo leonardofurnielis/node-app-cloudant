@@ -12,7 +12,7 @@ module.exports = {
 
     const opts = {};
     opts.jwtFromRequest = ExtractJwt.fromHeader('authorization');
-
+    opts.secretOrKey = '01109c30-6c00-4367-ac03-40cd69940808';
     passport.use(
       new JwtStrategy(opts, async (jwtPayload, done) => {
         try {
