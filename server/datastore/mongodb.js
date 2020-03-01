@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
 
-const connections = require('../index');
+const connections = require('./connections');
 
 mongoose.Promise = global.Promise;
 

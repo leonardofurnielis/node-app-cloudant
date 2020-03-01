@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 
 const schema = require('../schemas/users');
-const connection = require('../../server/datastores/connections/mongodb')('db-south');
+const connection = require('../../server/datastore/connections/mongodb')('db-south');
 
 schema.methods.toJSON = function() {
   const user = this;

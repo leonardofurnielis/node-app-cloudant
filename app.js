@@ -2,7 +2,7 @@
 
 const express = require('express');
 
-const server = require('./src/server');
+const server = require('./server');
 
 async function startServer() {
   const app = express();

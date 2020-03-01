@@ -4,7 +4,7 @@ const redis = require('redis');
 const path = require('path');
 const fs = require('fs');
 
-const connections = require('../index');
+const connections = require('./connections');
 
 module.exports = db => {
   const options = {};

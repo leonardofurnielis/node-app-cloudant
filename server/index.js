@@ -4,10 +4,10 @@
 
 const http = require('http');
 
-const environmentLoader = require('./config/environment');
-const logLoader = require('./config/log');
-const initialization = require('./config/initialization');
-const securityLoader = require('./config/security');
+const environmentLoader = require('./boot/environment');
+const logLoader = require('./boot/log');
+const initialization = require('./boot/initialization');
+const securityLoader = require('./boot/security');
 // const routesLoader = require('./routes');
 
 module.exports = {
