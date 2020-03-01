@@ -1,23 +1,11 @@
 'use strict';
 
-const path = require('path');
 const log4js = require('log4js');
 
 log4js.configure({
   appenders: {
     stdout: { type: 'stdout' },
     stderr: { type: 'stderr' },
-    error: {
-      type: 'file',
-      filename: path.join(__dirname, '../tmp/error.log'),
-      maxLogSize: 2000000,
-    },
-    fileErrorFilter: {
-      type: 'logLevelFilter',
-      appender: 'error',
-      level: 'error',
-      maxLevel: 'error',
-    },
     stderrFilter: {
       type: 'logLevelFilter',
       appender: 'stderr',
@@ -33,13 +21,13 @@ log4js.configure({
   },
   categories: {
     default: {
-      appenders: ['fileErrorFilter', 'stderrFilter', 'stdoutFilter'],
+      appenders: ['stderrFilter', 'stdoutFilter'],
       level: 'debug',
     },
   },
 });
 
-module.exports = (name = 'sample-node') => {
+module.exports = async (name = ' ') => {
   const logger = log4js.getLogger(name);
   logger.level = process.env.LOGGER_LEVEL;
 

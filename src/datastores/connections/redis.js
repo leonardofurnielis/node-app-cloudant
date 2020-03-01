@@ -4,15 +4,15 @@ const redis = require('redis');
 const path = require('path');
 const fs = require('fs');
 
-const connections = require('../datasources');
+const connections = require('../index');
 
 module.exports = db => {
   const options = {};
 
   // DB uses sslCA Certificate
-  if (connections[db].cert64) {
+  if (connections[db].cert) {
     options.tls = {
-      ca: fs.readFileSync(path.join(__dirname, `../cert/${connections[db].cert64}`)),
+      ca: fs.readFileSync(path.join(__dirname, `../../certs/${connections[db].cert}`)),
       servername: new URL(connections[db].uri).hostname,
     };
   }

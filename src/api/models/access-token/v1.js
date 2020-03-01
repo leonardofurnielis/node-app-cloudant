@@ -1,6 +1,6 @@
 'use strict';
 
-const schema = require('../../../datasources/schemas/access-token/v1');
-const connection = require('../../../datasources/connections/mongodb')('db-south');
+const schema = require('../../../datastores/schemas/access-token/v1');
+const connection = require('../../../datastores/connections/mongodb')('db-south');
 
 module.exports = connection.model('access_token', schema);
