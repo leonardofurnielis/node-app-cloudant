@@ -5,9 +5,9 @@
 const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 
-const schema = require('../../schemas/users/v1');
+const schema = require('../../../datasources/schemas/users/v1');
 const serialGenerator = require('../../../lib/helpers/serial');
-const connection = require('../../../db/connections/mongodb')('db-south');
+const connection = require('../../../datasources/connections/mongodb')('db-south');
 
 schema.methods.toJSON = function() {
   const user = this;

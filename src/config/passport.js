@@ -6,8 +6,8 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 
 module.exports = passport => {
-  const UsersV1 = require('../src/models/users/v1');
-  const AccessTokenV1 = require('../src/models/access-token/v1');
+  const UsersV1 = require('../api/models/users/v1');
+  const AccessTokenV1 = require('../api/models/access-token/v1');
 
   const opts = {};
   opts.jwtFromRequest = ExtractJwt.fromHeader('authorization');

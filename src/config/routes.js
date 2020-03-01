@@ -12,7 +12,7 @@ const express = require('express');
 const routerV1 = express.Router();
 
 const invokeRoutes = app => {
-  const authenticate = require('../src/routes/authenticate/v1');
+  const authenticate = require('../api/routes/authenticate/v1');
 
   routerV1.use('/authenticate', authenticate());
 
