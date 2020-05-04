@@ -19,6 +19,6 @@ $ npm start
 To run this code using Docker container execute the following commands into project root directory
 
 ```bash
-$ docker build -t cpt-chattools .
-$ docker run -p 8080:3000 -d cpt-chattools
+$ docker build -t node-boilerplate .
+$ docker run -p 8080:3000 -d node-boilerplate
 ```
