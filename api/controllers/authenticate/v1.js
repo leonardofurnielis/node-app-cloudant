@@ -11,9 +11,7 @@ const UsersV1 = require('../../models/users/v1');
 const authenticate = async (req, res, next) => {
   try {
     const base64Auth = (req.headers.authorization || '').split(' ')[1] || '';
-    const [username, password] = Buffer.from(base64Auth, 'base64')
-      .toString()
-      .split(':');
+    const [username, password] = Buffer.from(base64Auth, 'base64').toString().split(':');
 
     const user = await UsersV1.findByCredentials(username, password);
     const payload = _.pick(user, ['_id', 'serial', 'username', 'fullname', 'group', 'active']);

@@ -8,7 +8,7 @@ const connections = require('./connections');
 
 mongoose.Promise = global.Promise;
 
-module.exports = db => {
+module.exports = (db) => {
   const options = {
     dbName: `${db}`,
     useNewUrlParser: true,
@@ -20,15 +20,19 @@ module.exports = db => {
 
   // DB uses sslCA Certificate
   if (connections[db].cert) {
-    options.sslCA = fs.readFileSync(path.join(__dirname, `../../certs/${connections[db].cert}`));
+    options.sslCA = fs.readFileSync(path.join(__dirname, `../../ca/${connections[db].cert}`));
   }
 
-  const connection = mongoose.createConnection(connections[db].uri, options);
+  let connection;
 
-  // Connection throws an error
-  connection.on('error', err => {
-    console.error(err);
-  });
+  if (connections[db].uri) {
+    connection = mongoose.createConnection(connections[db].uri, options);
+
+    // Connection throws an error
+    connection.on('error', (err) => {
+      console.error(err);
+    });
+  }
 
   return connection;
 };

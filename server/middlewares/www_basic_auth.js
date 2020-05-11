@@ -7,9 +7,7 @@ module.exports = () => {
   return async function wwwBasicAuth(req, res, next) {
     try {
       const base64Auth = (req.headers.authorization || '').split(' ')[1] || '';
-      const [username, password] = Buffer.from(base64Auth, 'base64')
-        .toString()
-        .split(':');
+      const [username, password] = Buffer.from(base64Auth, 'base64').toString().split(':');
 
       await UsersV1.findByCredentials(username, password);
 

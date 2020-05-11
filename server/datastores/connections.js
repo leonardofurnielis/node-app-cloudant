@@ -1,17 +1,21 @@
 'use strict';
 
 module.exports = {
-  'mongodb_development': {
-    uri: process.env.MONGODB_URI,
+  db_development: {
+    uri: process.env.MongodbUri,
+    adapter: 'mongodb',
   },
-  'mongodb_qa': {
-    uri: process.env.MONGODB_URI,
+  db_qa: {
+    uri: process.env.MongodbUri,
+    adapter: 'mongodb',
   },
-  'mongodb_production': {
-    uri: process.env.MONGODB_URI,
+  db_production: {
+    uri: process.env.MongodbUri,
+    adapter: 'mongodb',
   },
-  'redis': {
+  redis: {
     uri: process.env.REDIS_URI,
-    cert64: '797cf5ae-4027-11e9-a020-42025ffb08c8.crt',
+    adapter: 'redis',
+    // cert64: 'filename.cer',
   },
 };
