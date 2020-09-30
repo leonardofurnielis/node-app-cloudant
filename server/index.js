@@ -11,7 +11,7 @@ const securityLoader = require('./boot/security');
 // const routesLoader = require('./routes');
 
 module.exports = {
-  listen: async app => {
+  listen: async (app) => {
     environmentLoader(process.env.NODE_ENV);
 
     logLoader();
@@ -27,7 +27,7 @@ module.exports = {
 
     const server = http.createServer(app);
 
-    server.on('clientError', err => {
+    server.on('clientError', (err) => {
       console.error(err);
     });
 
@@ -37,8 +37,9 @@ module.exports = {
       );
 
       console.info(
-        `OpenAPI-UI is running on: http://${server.address().address}:${process.env.PORT ||
-        3000}/explorer`
+        `OpenAPI-UI is running on: http://${server.address().address}:${
+          process.env.PORT || 3000
+        }/explorer`
       );
       console.info('To shut down, press <CTRL> + C at any time.');
     });

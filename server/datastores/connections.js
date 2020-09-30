@@ -2,15 +2,15 @@
 
 module.exports = {
   db_development: {
-    uri: process.env.MongodbUri,
+    uri: process.env.MONGODB_URI,
     adapter: 'mongodb',
   },
   db_qa: {
-    uri: process.env.MongodbUri,
+    uri: process.env.MONGODB_URI,
     adapter: 'mongodb',
   },
   db_production: {
-    uri: process.env.MongodbUri,
+    uri: process.env.MONGODB_URI,
     adapter: 'mongodb',
   },
   redis: {
