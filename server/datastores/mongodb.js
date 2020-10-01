@@ -19,18 +19,20 @@ module.exports = (db) => {
   };
 
   // DB uses sslCA Certificate
-  if (connections[db].cert) {
-    options.sslCA = fs.readFileSync(path.join(__dirname, `../../ca/${connections[db].cert}`));
+  if (connections[db].ca_filename) {
+    options.sslCA = fs.readFileSync(
+      path.join(__dirname, `../../ca/${connections[db].ca_filename}`)
+    );
   }
 
   let connection;
 
-  if (connections[db].uri) {
+  if (connections[db].uri && connections[db] === 'mongodb') {
     connection = mongoose.createConnection(connections[db].uri, options);
 
     // Connection throws an error
     connection.on('error', (err) => {
-      console.error(err);
+      return console.error(err);
     });
   }
 

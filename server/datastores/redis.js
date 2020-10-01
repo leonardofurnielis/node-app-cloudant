@@ -10,9 +10,9 @@ module.exports = (db) => {
   const options = {};
 
   // DB uses sslCA Certificate
-  if (connections[db].cert64) {
+  if (connections[db].ca_filename) {
     options.tls = {
-      ca: fs.readFileSync(path.join(__dirname, `../../ca/${connections[db].cert}`)),
+      ca: fs.readFileSync(path.join(__dirname, `../../ca/${connections[db].ca_filename}`)),
       servername: new URL(connections[db].uri).hostname,
     };
   }
@@ -24,7 +24,7 @@ module.exports = (db) => {
 
     // Connection throws an error
     connection.on('error', (err) => {
-      console.error(err);
+      return console.error(err);
     });
   }
 

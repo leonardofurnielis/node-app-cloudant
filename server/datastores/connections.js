@@ -2,20 +2,23 @@
 
 module.exports = {
   db_development: {
-    uri: process.env.MONGODB_URI,
-    adapter: 'mongodb',
+    uri: process.env.DB_URI,
+    iamApiKey: '',
+    adapter: 'cloudant',
   },
   db_qa: {
-    uri: process.env.MONGODB_URI,
-    adapter: 'mongodb',
+    uri: process.env.DB_URI,
+    iamApiKey: '',
+    adapter: 'cloudant',
   },
   db_production: {
-    uri: process.env.MONGODB_URI,
-    adapter: 'mongodb',
+    uri: process.env.DB_URI,
+    iamApiKey: '',
+    adapter: 'cloudant',
   },
   redis: {
     uri: process.env.REDIS_URI,
     adapter: 'redis',
-    // cert64: 'filename.cer',
+    // ca_filename: 'filename.cer',
   },
 };
