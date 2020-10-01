@@ -1,12 +1,12 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-const jwtDecode = require('jwt-decode');
+//const jwtDecode = require('jwt-decode');
 const { ObjectId } = require('mongodb');
 const _ = require('lodash');
 
-const AccessTokenV1 = require('../../models/access-token/v1');
-const UsersV1 = require('../../models/users/v1');
+//const AccessTokenV1 = require('../../models/access-token/v1');
+//const UsersV1 = require('../../models/users/v1');
 
 const authenticate = async (req, res, next) => {
   try {

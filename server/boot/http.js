@@ -8,7 +8,7 @@ const passport = require('passport');
 const errorHandler = require('node-error-handler');
 // const swaggerUi = require('swagger-ui-express');
 
-const routesLoader = require('../../api/routes');
+const routesLoader = require('./routes');
 // const basicAuth = require('../middlewares/www_basic_auth');
 const correlationID = require('../middlewares/correlation_id');
 const urlNotFound = require('../middlewares/url_not_found');
@@ -29,7 +29,7 @@ module.exports = async (app) => {
   // app.use('/explorer', basicAuth(), swaggerUi.serve, swaggerUi.setup(openApi));
 
   // Load API routes
-  app.use('/api', routesLoader());
+  routesLoader(app);
 
   // HTTP 404 handler
   app.use(urlNotFound());

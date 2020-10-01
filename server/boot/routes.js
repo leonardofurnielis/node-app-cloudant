@@ -1,22 +1,30 @@
+/* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 
 'use strict';
 
-const express = require('express');
+const path = require('path');
+const readRecursiveDirectory = require('../../common/helpers/read_recursive_directory.js');
+
 // const swaggerUi = require('swagger-ui-express');
 
 // const isLoggedIn = require('./../src/policies/logged');
 // const basicAuth = require('../lib/middlewares/www-basic-auth');
 // const swaggerDocument = require('../swagger/swagger.json');
 
-const routerV1 = express.Router();
 
-const invokeRoutes = app => {
-  const authenticate = require('../api/routes/authenticate/v1');
+const invokeRoutes = (app) => {
+  const routes = readRecursiveDirectory('/api/routes');
 
-  routerV1.use('/authenticate', authenticate());
+  routes.forEach((file) => {
+    const routeFile = require(path.join(process.cwd(), file));
+    const fn = file.replace('/api/routes/', '').replace('.js', '');
 
-  app.use('/api/v1', routerV1);
+    app.use(`api/${fn}`, routeFile);
+  });
+  // const authenticate = require('../api/routes/authenticate/v1');
+
+  // routerV1.use('/authenticate', authenticate());
   // app.use('/explorer', basicAuth(), swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 };
 
