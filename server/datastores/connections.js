@@ -19,6 +19,6 @@ module.exports = {
   redis: {
     uri: process.env.REDIS_URI,
     adapter: 'redis',
-    // ca_filename: 'filename.cer',
+    // sslCA: 'filename.cer',
   },
 };

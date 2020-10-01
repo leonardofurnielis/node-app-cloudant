@@ -4,14 +4,14 @@ const Cloudant = require('@cloudant/cloudant');
 
 const connections = require('./connections');
 
-module.exports = (db) => {
+module.exports = (conn, dbName) => {
   let connection;
 
-  if (connections[db].uri && connections[db].iamApiKey && connections[db] === 'cloudant') {
+  if (connections[conn].uri && connections[conn].iamApiKey && connections[conn] === 'cloudant') {
     Cloudant(
       {
-        url: connections[db].uri,
-        plugins: { iamauth: { iamApiKey: connections[db].iamApiKey } },
+        url: connections[conn].uri,
+        plugins: { iamauth: { iamApiKey: connections[conn].iamApiKey } },
       },
       (err, cloudant) => {
         // Connection throws an error
@@ -20,12 +20,12 @@ module.exports = (db) => {
         }
 
         // Create database if not exists
-        cloudant.db.create(db, (error) => {
+        cloudant.db.create(dbName, (error) => {
           if (error && error.statusCode !== 412) {
             console.error(error);
           }
 
-          connection = cloudant.db.use(db);
+          connection = cloudant.db.use(conn);
         });
       }
     );

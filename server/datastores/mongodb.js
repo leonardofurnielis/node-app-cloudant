@@ -8,9 +8,9 @@ const connections = require('./connections');
 
 mongoose.Promise = global.Promise;
 
-module.exports = (db) => {
+module.exports = (conn, dbName) => {
   const options = {
-    dbName: `${db}`,
+    dbName: `${conn}`,
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -19,16 +19,14 @@ module.exports = (db) => {
   };
 
   // DB uses sslCA Certificate
-  if (connections[db].ca_filename) {
-    options.sslCA = fs.readFileSync(
-      path.join(__dirname, `../../ca/${connections[db].ca_filename}`)
-    );
+  if (connections[conn].sslCA) {
+    options.sslCA = fs.readFileSync(path.join(__dirname, `../../ca/${connections[conn].sslCA}`));
   }
 
   let connection;
 
-  if (connections[db].uri && connections[db] === 'mongodb') {
-    connection = mongoose.createConnection(connections[db].uri, options);
+  if (connections[conn].uri && connections[conn] === 'mongodb') {
+    connection = mongoose.createConnection(connections[conn].uri, options);
 
     // Connection throws an error
     connection.on('error', (err) => {
@@ -36,5 +34,5 @@ module.exports = (db) => {
     });
   }
 
-  return connection;
+  return connection.collection(dbName);
 };

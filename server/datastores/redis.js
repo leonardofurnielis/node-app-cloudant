@@ -6,21 +6,21 @@ const fs = require('fs');
 
 const connections = require('./connections');
 
-module.exports = (db) => {
+module.exports = (conn) => {
   const options = {};
 
   // DB uses sslCA Certificate
-  if (connections[db].ca_filename) {
+  if (connections[conn].sslCA) {
     options.tls = {
-      ca: fs.readFileSync(path.join(__dirname, `../../ca/${connections[db].ca_filename}`)),
-      servername: new URL(connections[db].uri).hostname,
+      ca: fs.readFileSync(path.join(__dirname, `../../ca/${connections[conn].sslCA}`)),
+      servername: new URL(connections[conn].uri).hostname,
     };
   }
 
   let connection;
 
   if (options.servername) {
-    connection = redis.createClient(connections[db].uri, options);
+    connection = redis.createClient(connections[conn].uri, options);
 
     // Connection throws an error
     connection.on('error', (err) => {
