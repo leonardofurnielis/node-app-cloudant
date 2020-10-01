@@ -7,11 +7,8 @@ const path = require('path');
 const readRecursiveDirectory = require('../../common/helpers/read_recursive_directory.js');
 
 // const swaggerUi = require('swagger-ui-express');
-
-// const isLoggedIn = require('./../src/policies/logged');
 // const basicAuth = require('../lib/middlewares/www-basic-auth');
 // const swaggerDocument = require('../swagger/swagger.json');
-
 
 const invokeRoutes = (app) => {
   const routes = readRecursiveDirectory('/api/routes');
@@ -22,9 +19,7 @@ const invokeRoutes = (app) => {
 
     app.use(`api/${fn}`, routeFile);
   });
-  // const authenticate = require('../api/routes/authenticate/v1');
 
-  // routerV1.use('/authenticate', authenticate());
   // app.use('/explorer', basicAuth(), swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 };
 
