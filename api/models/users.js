@@ -1,8 +1,8 @@
 'use strict';
 
 const bcrypt = require('bcryptjs');
-const db = require('../dao/cloudant');
-const schema = require('../../schemas/users');
+const db = require('./dao/cloudant');
+const schema = require('../schemas/users');
 
 const dbName = 'users';
 
