@@ -25,7 +25,7 @@ module.exports = (conn, dbName) => {
 
   let connection;
 
-  if (connections[conn].uri && connections[conn] === 'mongodb') {
+  if (connections[conn].uri && connections[conn].adapter === 'mongodb') {
     connection = mongoose.createConnection(connections[conn].uri, options);
 
     // Connection throws an error

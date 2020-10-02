@@ -15,7 +15,8 @@
   },
   "rules": {
     "prettier/prettier": ["error"],
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "no-underscore-dangle": ["error", { "allow": ["_id", "_rev"] }],
+    "no-async-promise-executor": "off",
     "no-param-reassign": "off",
     "consistent-return": "off",
     "no-plusplus": "off",

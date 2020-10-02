@@ -9,6 +9,4 @@ module.exports = async (env) => {
   if (result.error) {
     throw result.error;
   }
-
-  console.debug(result);
 };
