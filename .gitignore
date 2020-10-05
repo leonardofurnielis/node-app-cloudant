@@ -16,3 +16,6 @@ dist/
 # VS Code
 .DS_Store
 .vscode/
+
+#
+/server/boot/env/.env

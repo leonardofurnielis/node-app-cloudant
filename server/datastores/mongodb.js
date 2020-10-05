@@ -8,7 +8,7 @@ const connections = require('./connections');
 
 mongoose.Promise = global.Promise;
 
-module.exports = (conn, dbName) => {
+module.exports = (conn) => {
   const options = {
     dbName: `${conn}`,
     useNewUrlParser: true,
@@ -34,5 +34,5 @@ module.exports = (conn, dbName) => {
     });
   }
 
-  return connection.collection(dbName);
+  return connection;
 };

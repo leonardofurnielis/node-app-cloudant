@@ -12,11 +12,11 @@ const securityLoader = require('./boot/security');
 
 module.exports = {
   listen: async (app) => {
-    environmentLoader(process.env.NODE_ENV);
+    environmentLoader();
 
     logLoader();
 
-    httpLoader(app)
+    httpLoader(app);
 
     initialization();
 
@@ -43,5 +43,5 @@ module.exports = {
       );
       console.info('To shut down, press <CTRL> + C at any time.');
     });
-  }
+  },
 };
