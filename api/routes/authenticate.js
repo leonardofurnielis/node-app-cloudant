@@ -11,8 +11,6 @@ module.exports = (middlewares) => {
   }
 
   router.get('/', controller.authenticate);
-  router.get('/jwt-generator', controller.jwtGenerator);
-  router.get('/jwt-revoke', controller.jwtRevoke);
 
   return router;
 };

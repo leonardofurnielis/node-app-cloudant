@@ -1,75 +1,63 @@
 'use strict';
 
-const jwt = require('jsonwebtoken');
-// const jwtDecode = require('jwt-decode');
-const { ObjectId } = require('mongodb');
-const _ = require('lodash');
+const Users = require('../../models/users');
 
-// const AccessTokenV1 = require('../../models/access-token/v1');
-// const UsersV1 = require('../../models/users/v1');
-
-const authenticate = async (req, res, next) => {
+const list = async (req, res, next) => {
   try {
-    const base64Auth = (req.headers.authorization || '').split(' ')[1] || '';
-    const [username, password] = Buffer.from(base64Auth, 'base64').toString().split(':');
+    const doc = await Users.list();
 
-    const user = await UsersV1.findByCredentials(username, password);
-    const payload = _.pick(user, ['_id', 'serial', 'username', 'fullname', 'group', 'active']);
-    payload.aud = 'USER';
-
-    const token = jwt.sign(payload, process.env.SECRET, {
-      expiresIn: '8h',
-    });
-
-    return res.status(200).json({ jwt: `${token}` });
+    return res.status(200).json(doc);
   } catch (err) {
-    err.status = 401;
     next(err);
   }
 };
 
-const jwtGenerator = async (req, res, next) => {
+const find = async (req, res, next) => {
   try {
-    const decoded = jwtDecode(req.headers.authorization);
-    const _id = new ObjectId();
-    const payload = _.pick(decoded, ['serial', 'group', 'active']);
-    payload._id = _id;
-    payload.aud = 'APPLICATION';
+    const { id } = req.params;
+    const doc = await Users.find(id);
 
-    const token = jwt.sign(payload, process.env.SECRET);
-    const accessToken = new AccessTokenV1({
-      _id,
-      jwt: token,
-      serial: payload.serial,
-    });
-    await accessToken.save();
-
-    return res.status(200).json({ jwt: `${token}` });
+    return res.status(200).json(doc);
   } catch (err) {
-    err.status = 401;
     next(err);
   }
 };
 
-const jwtRevoke = async (req, res, next) => {
+const insert = async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
+    const doc = await Users.insert(req.body);
 
-    const http_response = await AccessTokenV1.findOneAndUpdate(
-      { jwt: token },
-      { $set: { active: false } },
-      { new: true }
-    );
-
-    return res.status(200).json(http_response);
+    return res.status(200).json(doc);
   } catch (err) {
-    err.status = 401;
+    next(err);
+  }
+};
+
+const update = async (req, res, next) => {
+  try {
+    const doc = await Users.update(req.body);
+
+    return res.status(200).json(doc);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const remove = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const doc = await Users.remove(id);
+
+    return res.status(200).json(doc);
+  } catch (err) {
     next(err);
   }
 };
 
 module.exports = {
-  authenticate,
-  jwtGenerator,
-  jwtRevoke,
+  list,
+  find,
+  insert,
+  update,
+  remove,
 };

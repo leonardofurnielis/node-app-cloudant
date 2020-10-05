@@ -1,24 +1,9 @@
 'use strict';
 
 module.exports = {
-  db_local: {
+  database: {
     uri: process.env.DATABASE_URI,
     iamApiKey: process.env.DATABASE_APIKEY,
-    adapter: 'cloudant',
-  },
-  db_development: {
-    uri: process.env.DATABASE_URI,
-    iamApiKey: '',
-    adapter: 'cloudant',
-  },
-  db_qa: {
-    uri: process.env.DATABASE_URI,
-    iamApiKey: '',
-    adapter: 'cloudant',
-  },
-  db_production: {
-    uri: process.env.DATABASE_URI,
-    iamApiKey: '',
     adapter: 'cloudant',
   },
   redis: {

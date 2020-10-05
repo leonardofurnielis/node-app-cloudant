@@ -10,9 +10,11 @@ module.exports = (middlewares) => {
     middlewares.forEach((middleware) => router.use(middleware));
   }
 
-  router.get('/', controller.authenticate);
-  router.get('/jwt-generator', controller.jwtGenerator);
-  router.get('/jwt-revoke', controller.jwtRevoke);
+  router.get('/', controller.list);
+  router.post('/', controller.insert);
+  router.get('/:id', controller.find);
+  router.put('', controller.update);
+  router.delete('/:id', controller.remove);
 
   return router;
 };

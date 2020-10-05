@@ -19,7 +19,7 @@ module.exports = (conn) => {
 
   let connection;
 
-  if (options.servername) {
+  if (options.servername && connections[conn].adapter === 'redis') {
     connection = redis.createClient(connections[conn].uri, options);
 
     // Connection throws an error

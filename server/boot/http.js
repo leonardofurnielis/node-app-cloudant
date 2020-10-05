@@ -36,5 +36,4 @@ module.exports = async (app) => {
 
   // HTTP error handler
   app.use(errorHandler());
-  console.log(process.env);
 };

@@ -8,14 +8,19 @@ const cloudant = require('../../../server/datastores/cloudant');
  * @returns {Promise} - The Promise object representing the database creation or failure.
  */
 function createDb(dbName) {
-  return new Promise(() => {
-    cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+  return new Promise((resolve, reject) => {
+    cloudant('database')
       .db.create(dbName)
-      .then(() => console.info(`Database was created successfully: ${dbName}`))
+      .then(() => {
+        console.info(`Database was created successfully: ${dbName}`);
+        return resolve();
+      })
       .catch((err) => {
         if (err.statusCode !== 412) {
           console.error(err);
+          return reject();
         }
+        return resolve();
       });
   });
 }
@@ -28,7 +33,7 @@ function createDb(dbName) {
 const list = (dbName) => {
   return new Promise(async (resolve, reject) => {
     await createDb(dbName);
-    cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+    cloudant('database')
       .db.use(dbName)
       .list({ include_docs: true })
       .then((data) => {
@@ -54,9 +59,10 @@ const list = (dbName) => {
  * @param {Object} selector - The selector object with the criteria to find documents.
  * @returns {Promise} - The Promise object representing an array of the documents found or failure.
  */
-const find = (dbName, selector) =>
-  new Promise((resolve, reject) => {
-    cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+const find = (dbName, selector = {}) =>
+  new Promise(async (resolve, reject) => {
+    await createDb(dbName);
+    cloudant('database')
       .db.use(dbName)
       .find(selector)
       .then((data) => {
@@ -76,13 +82,14 @@ const find = (dbName, selector) =>
  * @returns {Promise} - The Promise object representing an array of the documents found or failure.
  */
 const view = (dbName, designDoc, viewName, params = null) =>
-  new Promise((resolve, reject) => {
+  new Promise(async (resolve, reject) => {
+    await createDb(dbName);
     if (!params) {
       params = {};
     }
     params.include_docs = true;
 
-    cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+    cloudant('database')
       .db.use(dbName)
       .view(designDoc, viewName, params)
       .then((data) => {
@@ -108,8 +115,9 @@ const view = (dbName, designDoc, viewName, params = null) =>
  * @returns {Promise} - The Promise object representing the document found or failure.
  */
 const get = (dbName, id) =>
-  new Promise((resolve, reject) => {
-    cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+  new Promise(async (resolve, reject) => {
+    await createDb(dbName);
+    cloudant('database')
       .db.use(dbName)
       .get(id)
       .then((data) => resolve(data))
@@ -126,12 +134,13 @@ const get = (dbName, id) =>
  * @returns {Promise} - The Promise object representing the result of the operation or failure.
  */
 function insertDoc(dbName, doc) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
+    await createDb(dbName);
     // Delete _rev element, if existing, as it is not used to insert new documents
     if (doc._rev) {
       delete doc._rev; // eslint-disable-line no-param-reassign
     }
-    cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+    cloudant('database')
       .db.use(dbName)
       .insert(doc)
       .then((data) => {
@@ -160,8 +169,9 @@ const insert = (dbName, doc) => insertDoc(dbName, doc);
  * @returns {Promise} - The Promise object representing the result of the operation or failure.
  */
 function updateDoc(dbName, doc) {
-  return new Promise((resolve, reject) => {
-    cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+  return new Promise(async (resolve, reject) => {
+    await createDb(dbName);
+    cloudant('database')
       .db.use(dbName)
       .insert(doc)
       .then((data) => {
@@ -192,10 +202,11 @@ const update = (dbName, doc) => updateDoc(dbName, doc);
  * @returns {Promise} - The Promise object representing the result of the operation or failure.
  */
 const save = (dbName, doc) =>
-  new Promise((resolve, reject) => {
+  new Promise(async (resolve, reject) => {
+    await createDb(dbName);
     // If the doc to be saved has _id, check if a doc with the _id exists
     if (doc._id) {
-      cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+      cloudant('database')
         .db.use(dbName)
         .get(doc._id)
         // If a doc with the _id exists, update it
@@ -223,12 +234,13 @@ const save = (dbName, doc) =>
  * @returns {Promise} - The Promise object representing the result of the operation or failure.
  */
 const remove = (dbName, id) =>
-  new Promise((resolve, reject) => {
-    cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+  new Promise(async (resolve, reject) => {
+    await createDb(dbName);
+    cloudant('database')
       .db.use(dbName)
       .get(id)
       .then((doc) => {
-        cloudant(`db_${process.env.NODE_ENV || 'local'}`)
+        cloudant('database')
           .db.use(dbName)
           .destroy(id, doc._rev)
           .then((data) => {
