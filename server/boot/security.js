@@ -8,7 +8,7 @@ const { ExtractJwt } = require('passport-jwt');
 
 module.exports = {
   passport: () => {
-    const Users = require('../../api/models/users');
+    const users = require('../../api/models/users');
 
     const opts = {};
     opts.jwtFromRequest = ExtractJwt.fromHeader('authorization');
@@ -16,7 +16,7 @@ module.exports = {
     passport.use(
       new JwtStrategy(opts, async (jwtPayload, done) => {
         try {
-          const user = await Users.find(jwtPayload._id).docs[0];
+          const user = await users.find(jwtPayload._id).docs[0];
 
           if (user && user.active === true) {
             return done(null, user);

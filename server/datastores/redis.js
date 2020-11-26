@@ -9,10 +9,10 @@ const connections = require('./connections');
 module.exports = (conn) => {
   const options = {};
 
-  // DB uses sslCA Certificate
-  if (connections[conn].sslCA) {
+  // DB uses ssl certificate
+  if (connections[conn].ssl_ca) {
     options.tls = {
-      ca: fs.readFileSync(path.join(__dirname, `../../ca/${connections[conn].sslCA}`)),
+      ca: fs.readFileSync(path.join(__dirname, `../../ca/${connections[conn].ssl_ca}`)),
       servername: new URL(connections[conn].uri).hostname,
     };
   }

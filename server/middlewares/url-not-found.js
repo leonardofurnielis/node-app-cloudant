@@ -1,14 +1,14 @@
 'use strict';
 
 module.exports = () => {
-  return function raiseUrlNotFoundError(req, res) {
-    const notFound = {
+  return function raise_url_not_found_error(req, res) {
+    const not_found = {
       error: {
-        statusCode: 404,
+        status_code: 404,
         message: `Cannot found '${req.url}' on this server`,
         code: 'NOT_FOUND',
       },
     };
-    return res.status(404).json(notFound);
+    return res.status(404).json(not_found);
   };
 };
