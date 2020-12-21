@@ -30,8 +30,8 @@ function createDb(dbName) {
  * @param {string} dbName - The database name.
  * @returns {Promise} - The Promise object representing the database creation or failure.
  */
-const list = (dbName) => {
-  return new Promise(async (resolve, reject) => {
+const list = (dbName) =>
+  new Promise(async (resolve, reject) => {
     await createDb(dbName);
     cloudant('database')
       .db.use(dbName)
@@ -51,7 +51,6 @@ const list = (dbName) => {
         reject(err);
       });
   });
-};
 
 /**
  * Find documents in a database, based on a selector object.

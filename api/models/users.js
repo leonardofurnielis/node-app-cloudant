@@ -18,8 +18,8 @@ const find = (id) =>
     fields: ['_id', '_rev', 'createdAt', 'username', 'name', 'email', 'active'],
   });
 
-const findByCredentials = (username, password) => {
-  return db
+const findByCredentials = (username, password) =>
+  db
     .find(dbName, {
       selector: { $or: [{ username }, { email: username }] },
       fields: ['_id', '_rev', 'username', 'password', 'name', 'email', 'active'],
@@ -38,10 +38,9 @@ const findByCredentials = (username, password) => {
         });
       });
     });
-};
 
-const insert = (doc) => {
-  return new Promise((resolve, reject) => {
+const insert = (doc) =>
+  new Promise((resolve, reject) => {
     const docValidate = schema.validate(doc);
 
     if (docValidate.error) {
@@ -56,10 +55,9 @@ const insert = (doc) => {
 
     return resolve(db.insert(dbName, doc));
   });
-};
 
-const update = (doc) => {
-  return new Promise((resolve, reject) => {
+const update = (doc) =>
+  new Promise((resolve, reject) => {
     const docValidate = schema.validate(doc);
 
     if (docValidate.error) {
@@ -74,7 +72,6 @@ const update = (doc) => {
 
     return resolve(db.update(dbName, doc));
   });
-};
 
 const remove = (id) => db.remove(dbName, id);
 
