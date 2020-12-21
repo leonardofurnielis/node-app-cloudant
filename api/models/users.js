@@ -4,23 +4,23 @@ const bcrypt = require('bcryptjs');
 const db = require('./dao/cloudant');
 const schema = require('../schemas/users');
 
-const dbName = 'users';
+const db_name = 'users';
 
 const list = () =>
-  db.find(dbName, {
+  db.find(db_name, {
     selector: {},
     fields: ['_id', '_rev', 'createdAt', 'username', 'name', 'email', 'active'],
   });
 
 const find = (id) =>
-  db.find(dbName, {
+  db.find(db_name, {
     selector: { _id: id },
     fields: ['_id', '_rev', 'createdAt', 'username', 'name', 'email', 'active'],
   });
 
-const findByCredentials = (username, password) =>
+const find_by_credentials = (username, password) =>
   db
-    .find(dbName, {
+    .find(db_name, {
       selector: { $or: [{ username }, { email: username }] },
       fields: ['_id', '_rev', 'username', 'password', 'name', 'email', 'active'],
     })
@@ -41,44 +41,44 @@ const findByCredentials = (username, password) =>
 
 const insert = (doc) =>
   new Promise((resolve, reject) => {
-    const docValidate = schema.validate(doc);
+    const doc_validate = schema.validate(doc);
 
-    if (docValidate.error) {
-      return reject(docValidate.error);
+    if (doc_validate.error) {
+      return reject(doc_validate.error);
     }
-    doc = docValidate.value;
+    doc = doc_validate.value;
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(doc.password, salt, (error, hash) => {
         doc.password = hash;
       });
     });
 
-    return resolve(db.insert(dbName, doc));
+    return resolve(db.insert(db_name, doc));
   });
 
 const update = (doc) =>
   new Promise((resolve, reject) => {
-    const docValidate = schema.validate(doc);
+    const doc_validate = schema.validate(doc);
 
-    if (docValidate.error) {
-      return reject(docValidate.error);
+    if (doc_validate.error) {
+      return reject(doc_validate.error);
     }
-    doc = docValidate.value;
+    doc = doc_validate.value;
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(doc.password, salt, (error, hash) => {
         doc.password = hash;
       });
     });
 
-    return resolve(db.update(dbName, doc));
+    return resolve(db.update(db_name, doc));
   });
 
-const remove = (id) => db.remove(dbName, id);
+const remove = (id) => db.remove(db_name, id);
 
 module.exports = {
   list,
   find,
-  findByCredentials,
+  find_by_credentials,
   insert,
   update,
   remove,
