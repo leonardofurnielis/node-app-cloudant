@@ -4,7 +4,7 @@
 'use strict';
 
 const path = require('path');
-const read_recursive_directory = require('../../lib/helpers/read_recursive_directory.js');
+const read_recursive_directory = require('../../lib/helpers/read-recursive-directory.js');
 
 // const swagger_ui = require('swagger-ui-express');
 // const basic_auth = require('../lib/middlewares/www-basic-auth');
@@ -18,6 +18,7 @@ const routes_loader = (app) => {
     const fn = file.replace('/api/routes/', '').replace('.js', '');
 
     app.use(`/api/${fn}`, routeFile());
+    console.debug(`Route Loaded Successfully: /api/${fn}`);
   });
 
   // Expose API openapi documentation

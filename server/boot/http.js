@@ -8,8 +8,8 @@ const passport = require('passport');
 const error_handler = require('node-error-handler');
 
 const routes_loader = require('./routes');
-const correlation_id = require('../middlewares/correlation_id');
-const url_not_found = require('../middlewares/url_not_found');
+const request_id = require('../middlewares/request-id');
+const url_not_found = require('../middlewares/url-not-found');
 
 module.exports = async (app) => {
   // Middlewares
@@ -20,7 +20,7 @@ module.exports = async (app) => {
   app.use(compression());
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(correlation_id());
+  app.use(request_id());
 
   // Load API routes
   routes_loader(app);

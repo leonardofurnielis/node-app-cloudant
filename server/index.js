@@ -22,8 +22,9 @@ module.exports = {
 
     security_loader.passport();
 
-    console.info(`Port : ${process.env.PORT || 3000}`);
-    console.info(`NODE_ENV : ${process.env.NODE_ENV || 'local'}`);
+    console.info(`Port: ${process.env.PORT || 3000}`);
+    console.info(`NODE_ENV: ${process.env.NODE_ENV || 'local'}`);
+    console.info(`Logger Level: ${process.env.LOGGER_LEVEL}`);
 
     const server = http.createServer(app);
 
