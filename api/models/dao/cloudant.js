@@ -17,8 +17,7 @@ function create_db(db_name) {
       })
       .catch((err) => {
         if (err.statusCode !== 412) {
-          console.error(err);
-          return reject();
+          return reject(err);
         }
         return resolve();
       });
@@ -32,7 +31,7 @@ function create_db(db_name) {
  */
 const list = (db_name) =>
   new Promise(async (resolve, reject) => {
-    await create_db(db_name);
+    await create_db(db_name).catch((err) => reject(err));
     cloudant('database')
       .db.use(db_name)
       .list({ include_docs: true })
@@ -60,7 +59,7 @@ const list = (db_name) =>
  */
 const find = (db_name, selector = {}) =>
   new Promise(async (resolve, reject) => {
-    await create_db(db_name);
+    await create_db(db_name).catch((err) => reject(err));
     cloudant('database')
       .db.use(db_name)
       .find(selector)
@@ -82,7 +81,7 @@ const find = (db_name, selector = {}) =>
  */
 const view = (db_name, design_doc, view_name, params = null) =>
   new Promise(async (resolve, reject) => {
-    await create_db(db_name);
+    await create_db(db_name).catch((err) => reject(err));
     if (!params) {
       params = {};
     }
@@ -115,7 +114,7 @@ const view = (db_name, design_doc, view_name, params = null) =>
  */
 const get = (db_name, id) =>
   new Promise(async (resolve, reject) => {
-    await create_db(db_name);
+    await create_db(db_name).catch((err) => reject(err));
     cloudant('database')
       .db.use(db_name)
       .get(id)
@@ -134,7 +133,7 @@ const get = (db_name, id) =>
  */
 function insert_doc(db_name, doc) {
   return new Promise(async (resolve, reject) => {
-    await create_db(db_name);
+    await create_db(db_name).catch((err) => reject(err));
     // Delete _rev element, if existing, as it is not used to insert new documents
     if (doc._rev) {
       delete doc._rev; // eslint-disable-line no-param-reassign
@@ -169,7 +168,7 @@ const insert = (db_name, doc) => insert_doc(db_name, doc);
  */
 function update_doc(db_name, doc) {
   return new Promise(async (resolve, reject) => {
-    await create_db(db_name);
+    await create_db(db_name).catch((err) => reject(err));
     cloudant('database')
       .db.use(db_name)
       .insert(doc)
@@ -202,7 +201,7 @@ const update = (db_name, doc) => update_doc(db_name, doc);
  */
 const save = (db_name, doc) =>
   new Promise(async (resolve, reject) => {
-    await create_db(db_name);
+    await create_db(db_name).catch((err) => reject(err));
     // If the doc to be saved has _id, check if a doc with the _id exists
     if (doc._id) {
       cloudant('database')
@@ -234,7 +233,7 @@ const save = (db_name, doc) =>
  */
 const remove = (db_name, id) =>
   new Promise(async (resolve, reject) => {
-    await create_db(db_name);
+    await create_db(db_name).catch((err) => reject(err));
     cloudant('database')
       .db.use(db_name)
       .get(id)

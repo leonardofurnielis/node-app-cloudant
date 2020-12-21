@@ -34,14 +34,14 @@ const find_by_credentials = (username, password) =>
           if (!isMatch || err) {
             reject(new Error("The requested 'password' was wrong"));
           }
-          resolve(doc);
+          resolve(doc.docs[0]);
         });
       });
     });
 
 const insert = (doc) =>
   new Promise((resolve, reject) => {
-    const doc_validate = schema.validate(doc);
+    const doc_validate = schema.validate(doc, { stripUnknown: true });
 
     if (doc_validate.error) {
       return reject(doc_validate.error);
@@ -53,12 +53,14 @@ const insert = (doc) =>
       });
     });
 
+    doc._id = `user:${doc.username}-${doc.email}`;
+
     return resolve(db.insert(db_name, doc));
   });
 
 const update = (doc) =>
   new Promise((resolve, reject) => {
-    const doc_validate = schema.validate(doc);
+    const doc_validate = schema.validate(doc, { stripUnknown: true });
 
     if (doc_validate.error) {
       return reject(doc_validate.error);

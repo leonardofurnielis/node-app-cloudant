@@ -11,7 +11,11 @@ module.exports = (conn) => {
   ) {
     return Cloudant({
       url: connections[conn].uri,
-      plugins: { iamauth: { iam_api_key: connections[conn].iam_api_key } },
+      maxAttempt: 5,
+      plugins: [
+        { iamauth: { iamApiKey: connections[conn].iam_api_key } },
+        { retry: { retryDelayMultiplier: 4 } },
+      ],
     });
   }
 };
