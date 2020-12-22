@@ -9,7 +9,7 @@ const db_name = 'users';
 const list = () =>
   db.find(db_name, {
     selector: {},
-    fields: ['_id', '_rev', 'createdAt', 'username', 'name', 'email', 'active'],
+    fields: ['_id', '_rev', 'created_at', 'updated_at', 'username', 'name', 'email', 'active'],
   });
 
 const find = (id) =>
