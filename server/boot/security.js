@@ -13,7 +13,7 @@ module.exports = {
     const secret = process.env.PW_SECRET || uuid.v1();
     const opts = {};
     opts.jwtFromRequest = ExtractJwt.fromHeader('x-iam-key');
-    opts.secretOrKey = process.env.PW_SECRET;
+    opts.secretOrKey = secret;
     passport.use(
       new JwtStrategy(opts, async (jwtPayload, done) => {
         try {
