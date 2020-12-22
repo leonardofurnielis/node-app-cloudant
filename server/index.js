@@ -22,9 +22,9 @@ module.exports = {
 
     security_loader.passport();
 
-    console.info(`Port: ${process.env.PORT || 3000}`);
-    console.info(`NODE_ENV: ${process.env.NODE_ENV || 'local'}`);
-    console.info(`Logger Level: ${process.env.LOGGER_LEVEL}`);
+    console.debug(`Port: ${process.env.PORT || 3000}`);
+    console.debug(`NODE_ENV: ${process.env.NODE_ENV || 'local'}`);
+    console.debug(`Logger Level: ${process.env.LOGGER_LEVEL}`);
 
     const server = http.createServer(app);
 
@@ -34,7 +34,7 @@ module.exports = {
 
     server.listen(Number(process.env.PORT || 3000), '0.0.0.0', () => {
       console.info(
-        `Server is running on: http://${server.address().address}:${process.env.PORT || 3000}`
+        `REST server running on: http://${server.address().address}:${process.env.PORT || 3000}`
       );
 
       console.info(
