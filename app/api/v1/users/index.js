@@ -14,7 +14,7 @@ module.exports = (middlewares) => {
   // router.get('/', authenticate, controller.list);
   router.post('/', controller.insert);
   router.get('/:id', controller.find);
-  router.put('', controller.update);
+  router.put('/:id', controller.update);
   router.delete('/:id', controller.remove);
 
   return router;
