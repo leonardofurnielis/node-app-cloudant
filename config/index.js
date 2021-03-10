@@ -4,26 +4,26 @@
 
 const http = require('http');
 
-const EnvironmentLoader = require('./environment');
-const LogLoader = require('./log');
-const HttpLoader = require('./http');
-const RoutesLoader = require('./routes');
-const BootstrapLoader = require('./bootstrap');
-const SecurityLoader = require('./security');
+const environmentLoader = require('./environment');
+const logLoader = require('./log');
+const httpLoader = require('./http');
+const routesLoader = require('./routes');
+const bootstrapLoader = require('./bootstrap');
+const securityLoader = require('./security');
 
 module.exports = {
   create: async (app) => {
-    EnvironmentLoader();
+    environmentLoader();
 
-    LogLoader();
+    logLoader();
 
-    HttpLoader(app);
+    httpLoader(app);
 
-    RoutesLoader(app);
+    routesLoader(app);
 
-    BootstrapLoader();
+    bootstrapLoader();
 
-    SecurityLoader();
+    securityLoader();
   },
   listen: async (app) => {
     console.info(`Port: ${process.env.PORT || 3000}`);

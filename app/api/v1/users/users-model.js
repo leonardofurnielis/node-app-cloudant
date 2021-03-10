@@ -9,13 +9,13 @@ const dbName = 'users';
 const list = () =>
   db.find(dbName, {
     selector: {},
-    fields: ['_id', '_rev', 'created_at', 'updated_at', 'username', 'name', 'email', 'active'],
+    fields: ['_id', '_rev', 'createdAt', 'updatedAt', 'username', 'name', 'email', 'active'],
   });
 
 const find = (id) =>
   db.find(dbName, {
     selector: { _id: id },
-    fields: ['_id', '_rev', 'createdAt', 'username', 'name', 'email', 'active'],
+    fields: ['_id', '_rev', 'createdAt', 'updatedAt', 'username', 'name', 'email', 'active'],
   });
 
 const insert = (doc) =>

@@ -11,7 +11,7 @@ const ReadRecursiveDirectory = require('../services/read-recursive-directory');
 // const swaggerUi = require('swagger-ui-express');
 // const swaggerDocument = require('swagger.json');
 
-const RoutesLoader = (app) => {
+const routesLoader = (app) => {
   const routes = ReadRecursiveDirectory('/app/api');
 
   routes
@@ -39,4 +39,4 @@ const RoutesLoader = (app) => {
   app.use(errorHandler());
 };
 
-module.exports = RoutesLoader;
+module.exports = routesLoader;

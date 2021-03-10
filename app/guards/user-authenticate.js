@@ -5,7 +5,7 @@ const db = require('../dao/cloudant');
 
 const dbName = 'users';
 
-const FindByCredentials = (username, password) =>
+const findByCredentials = (username, password) =>
   db
     .find(dbName, {
       selector: { $or: [{ username }, { email: username }] },
@@ -27,4 +27,4 @@ const FindByCredentials = (username, password) =>
     })
     .catch((err) => Promise.reject(err));
 
-module.exports = FindByCredentials;
+module.exports = findByCredentials;
