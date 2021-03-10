@@ -2,7 +2,7 @@
 
 const express = require('express');
 const controller = require('./users-controller');
-// const authenticate = require('../../policies/is-logged-in');
+const authenticate = require('../../../guards/jwt-authenticate');
 
 module.exports = (middlewares) => {
   const router = express.Router();
@@ -11,7 +11,7 @@ module.exports = (middlewares) => {
     middlewares.forEach((middleware) => router.use(middleware));
   }
 
-  // router.get('/', authenticate, controller.list);
+  router.get('/', authenticate, controller.list);
   router.post('/', controller.insert);
   router.get('/:id', controller.find);
   router.put('/:id', controller.update);

@@ -41,11 +41,11 @@ module.exports = {
         `REST server running on: http://${server.address().address}:${process.env.PORT || 3000}`
       );
 
-      console.info(
-        `OpenAPI-UI is running on: http://${server.address().address}:${
-          process.env.PORT || 3000
-        }/explorer`
-      );
+      // console.info(
+      //   `OpenAPI-UI is running on: http://${server.address().address}:${
+      //     process.env.PORT || 3000
+      //   }/explorer`
+      // );
       console.info('To shut down, press <CTRL> + C at any time.');
     });
   },
