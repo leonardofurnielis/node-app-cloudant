@@ -7,7 +7,7 @@ const liveness = async (req, res, next) => {
     const healthcheck = {
       uptime: Math.floor(process.uptime()),
       version: process.version,
-      sys: {
+      resources: {
         memory: Math.floor(memory.heapUsed * 10 ** -6),
       },
     };
