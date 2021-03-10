@@ -4,7 +4,7 @@ const liveness = async (req, res, next) => {
   try {
     const memory = process.memoryUsage();
 
-    const response = {
+    const healthcheck = {
       uptime: Math.floor(process.uptime()),
       version: process.version,
       sys: {
@@ -12,7 +12,7 @@ const liveness = async (req, res, next) => {
       },
     };
 
-    return res.status(200).json(response);
+    return res.status(200).json(healthcheck);
   } catch (err) {
     next(err);
   }
