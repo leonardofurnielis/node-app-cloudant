@@ -5,7 +5,7 @@ const path = require('path');
 
 /**
  * Read recursive directory.
- * @param {String} dir - The directory path to start read.
+ * @param {String} dir - The directory path to start read (process.cwd() is used as entry point).
  * @param {Array} filelist - List of directory.
  * @returns {Array} - The complete list of directory.
  */

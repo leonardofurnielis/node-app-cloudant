@@ -6,15 +6,15 @@
 const path = require('path');
 const errorHandler = require('node-error-handler');
 
-const ReadRecursiveDirectory = require('../services/read-recursive-directory');
+const readRecursiveDirectory = require('../services/read-recursive-directory');
 
 // const swaggerUi = require('swagger-ui-express');
 // const swaggerDocument = require('swagger.json');
 
 const routesLoader = (app) => {
-  const routes = ReadRecursiveDirectory('/app/api');
+  const fileList = readRecursiveDirectory('/app/api');
 
-  routes
+  fileList
     .filter((f) => f.includes('index.js'))
     .forEach((file) => {
       const routeFile = require(path.join(process.cwd(), file));
