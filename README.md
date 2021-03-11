@@ -1,6 +1,7 @@
 # node-sample-cloudant
 
 [![Build Status](https://travis-ci.org/leonardofurnielis/node-sample-cloudant.svg?branch=master)](https://travis-ci.org/leonardofurnielis/node-sample-cloudant)
+[![codecov](https://codecov.io/gh/leonardofurnielis/node-sample-cloudant/branch/master/graph/badge.svg?token=5LTEJCG91W)](https://codecov.io/gh/leonardofurnielis/node-sample-cloudant)
 
 ## Table of Contents
 
