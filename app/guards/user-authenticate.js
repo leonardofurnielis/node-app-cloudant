@@ -12,7 +12,7 @@ const findByCredentials = (username, password) =>
       fields: ['_id', '_rev', 'username', 'password', 'name', 'email', 'active'],
     })
     .then((doc) => {
-      if (doc.docs.length < 0 || doc.docs[0].active === false) {
+      if (doc.docs.length < 1 || doc.docs[0].active === false) {
         return Promise.reject(new Error("The requested 'user' was not found"));
       }
 
