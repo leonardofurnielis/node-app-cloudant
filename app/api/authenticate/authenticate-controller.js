@@ -19,7 +19,7 @@ const authenticate = async (req, res, next) => {
 
     return res.status(200).json({ access_token: `${token}`, token_type: 'JWT', expires_in: 21600 });
   } catch (err) {
-    err.status = 401;
+    err.code = 401;
     next(err);
   }
 };
