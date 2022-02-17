@@ -11,9 +11,9 @@ module.exports = (middlewares) => {
     middlewares.forEach((middleware) => router.use(middleware));
   }
 
-  router.get('/', authenticate, controller.list);
+  router.get('/', controller.list);
   router.post('/', controller.insert);
-  router.get('/:id', controller.find);
+  router.get('/:id', authenticate, controller.find);
   router.put('/:id', controller.update);
   router.delete('/:id', controller.remove);
 
