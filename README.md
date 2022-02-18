@@ -1,6 +1,6 @@
 # node-sample-cloudant
 
-[![Build Status](https://travis-ci.org/leonardofurnielis/node-sample-cloudant.svg?branch=master)](https://travis-ci.org/leonardofurnielis/node-sample-cloudant)
+![workflow](https://github.com/leonardofurnielis/node-sample-cloudant/actions/workflows/test-coverage.yml/badge.svg)
 [![codecov](https://codecov.io/gh/leonardofurnielis/node-sample-cloudant/branch/master/graph/badge.svg?token=5LTEJCG91W)](https://codecov.io/gh/leonardofurnielis/node-sample-cloudant)
 
 ## Table of Contents
