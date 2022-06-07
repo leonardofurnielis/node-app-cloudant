@@ -8,7 +8,6 @@ const passport = require('passport');
 const rateLimit = require('express-rate-limit');
 const transactionId = require('express-transaction-id');
 
-
 module.exports = async (app) => {
   app.set('trust proxy', 1);
 
