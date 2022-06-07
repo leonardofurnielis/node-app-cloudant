@@ -2,6 +2,8 @@
 
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
+const fs = require('fs');
+const path = require('path');
 
 const findByCredentials = require('../../server/guards/user-authenticate');
 
@@ -13,13 +15,15 @@ const authenticate = async (req, res, next) => {
     const user = await findByCredentials(username, password);
     const payload = _.pick(user, ['_id', 'username', 'name', 'email', 'active']);
 
-    const token = jwt.sign(payload, process.env.PW_SECRET, {
+    const privateKEY = fs.readFileSync(path.join(__dirname, '../../private.pem'));
+    const token = jwt.sign(payload, privateKEY, {
       expiresIn: '6h',
+      algorithm: 'RS256',
     });
 
     return res.status(200).json({ access_token: `${token}`, token_type: 'JWT', expires_in: 21600 });
   } catch (err) {
-    err.code = 401;
+    err.status = 401;
     next(err);
   }
 };
