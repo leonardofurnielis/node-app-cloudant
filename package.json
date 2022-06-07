@@ -1,5 +1,5 @@
 {
-  "name": "node-sample-cloudant",
+  "name": "node-express-cloudant",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
