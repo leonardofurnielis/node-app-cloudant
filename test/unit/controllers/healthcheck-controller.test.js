@@ -14,7 +14,7 @@ describe('GET /api/health', () => {
 
   test('When called, should have all keys', () => {
     request(app)
-      .get('/api/health')
+      .get('/api/healthcheck')
       .then((response) => {
         expect(response.body).toHaveProperty('status');
         expect(response.body).toHaveProperty('uptime');
