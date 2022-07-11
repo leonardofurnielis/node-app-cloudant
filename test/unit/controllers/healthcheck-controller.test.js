@@ -3,10 +3,10 @@
 const request = require('supertest');
 const app = require('../../../server');
 
-describe('GET /api/health', () => {
+describe('GET /api/healthcheck', () => {
   test('When called, should return 200', () => {
     request(app)
-      .get('/api/health')
+      .get('/api/healthcheck')
       .then((response) => {
         expect(response.statusCode).toBe(200);
       });
