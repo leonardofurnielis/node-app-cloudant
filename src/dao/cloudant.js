@@ -9,46 +9,37 @@ const cloudant = require('../../server/config/datastores/cloudant');
  */
 function createDb(dbName) {
   return new Promise((resolve, reject) => {
-    cloudant('database')
-      .db.create(dbName)
-      .then(() => {
-        console.debug(`Database was created successfully: ${dbName}`);
-        return resolve();
-      })
-      .catch((err) => {
-        if (err.statusCode !== 412) {
-          return reject(err);
-        }
-        return resolve();
-      });
+
+    const service = cloudant();
+
+    service.putDatabase({ db: dbName }).then(data => {
+      console.debug(`Database was created successfully: ${dbName}`);
+      return resolve();
+    }).catch((err) => {
+      if (err.statusCode !== 412) {
+        return reject(err);
+      }
+      return resolve();
+    });
   });
 }
 
 /**
  * List documents of a database.
  * @param {string} dbName - The database name.
- * @returns {Promise} - The Promise object representing the database creation or failure.
+ * @returns {Promise} - The Promise object representing an array of the documents found or failure.
  */
 const list = (dbName) =>
   new Promise(async (resolve, reject) => {
     await createDb(dbName).catch((err) => reject(err));
-    cloudant('database')
-      .db.use(dbName)
-      .list({ include_docs: true })
-      .then((data) => {
-        const docs = [];
-        if (data.rows) {
-          data.rows.forEach((row) => {
-            if (row.doc) {
-              docs.push(row.doc);
-            }
-          });
-          resolve(docs);
-        }
-      })
-      .catch((err) => {
-        reject(err);
-      });
+
+    const service = cloudant();
+
+    service.postAllDocs({ db: dbName, includeDocs: true }).then(data => {
+      resolve(data.result);
+    }).catch((err) => {
+      reject(err);
+    });
   });
 
 /**
@@ -60,51 +51,16 @@ const list = (dbName) =>
 const find = (dbName, selector = {}) =>
   new Promise(async (resolve, reject) => {
     await createDb(dbName).catch((err) => reject(err));
-    cloudant('database')
-      .db.use(dbName)
-      .find(selector)
-      .then((data) => {
-        resolve(data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
+
+    const service = cloudant();
+
+    service.postFind({ db: dbName, selector }).then(data => {
+      resolve(data.result);
+    }).catch((err) => {
+      reject(err);
+    });
   });
 
-/**
- * Get documents from database view.
- * @param {string} dbName - The database name.
- * @param {string} designDoc - The design doc name, which contains the view.
- * @param {string} view - The view name.
- * @param {Object} params - The object with the params to query the view.
- * @returns {Promise} - The Promise object representing an array of the documents found or failure.
- */
-const view = (dbName, designDoc, viewName, params = null) =>
-  new Promise(async (resolve, reject) => {
-    await createDb(dbName).catch((err) => reject(err));
-    if (!params) {
-      params = {};
-    }
-    params.include_docs = true;
-
-    cloudant('database')
-      .db.use(dbName)
-      .view(designDoc, viewName, params)
-      .then((data) => {
-        const docs = [];
-        if (data.rows) {
-          data.rows.forEach((row) => {
-            if (row.doc) {
-              docs.push(row.doc);
-            }
-          });
-          resolve(docs);
-        }
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
 
 /**
  * Get a document from the database, based on the document id.
@@ -115,13 +71,14 @@ const view = (dbName, designDoc, viewName, params = null) =>
 const get = (dbName, id) =>
   new Promise(async (resolve, reject) => {
     await createDb(dbName).catch((err) => reject(err));
-    cloudant('database')
-      .db.use(dbName)
-      .get(id)
-      .then((data) => resolve(data))
-      .catch((err) => {
-        reject(err);
-      });
+
+    const service = cloudant();
+
+    service.getDocument({ db: dbName, docId: id }).then(data => {
+      resolve(data.result);
+    }).catch((err) => {
+      reject(err);
+    });
   });
 
 /**
@@ -134,19 +91,14 @@ const get = (dbName, id) =>
 function insertDoc(dbName, doc) {
   return new Promise(async (resolve, reject) => {
     await createDb(dbName).catch((err) => reject(err));
-    // Delete _rev element, if existing, as it is not used to insert new documents
-    if (doc._rev) {
-      delete doc._rev; // eslint-disable-line no-param-reassign
-    }
-    cloudant('database')
-      .db.use(dbName)
-      .insert(doc)
-      .then((data) => {
-        resolve(data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
+
+    const service = cloudant();
+
+    service.postDocument({ db: dbName, document: doc }).then(data => {
+      resolve(data.result);
+    }).catch((err) => {
+      reject(err);
+    });
   });
 }
 
@@ -169,15 +121,14 @@ const insert = (dbName, doc) => insertDoc(dbName, doc);
 function updateDoc(dbName, doc) {
   return new Promise(async (resolve, reject) => {
     await createDb(dbName).catch((err) => reject(err));
-    cloudant('database')
-      .db.use(dbName)
-      .insert(doc)
-      .then((data) => {
-        resolve(data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
+    
+    const service = cloudant();
+
+    service.postDocument({ db: dbName, document: doc }).then(data => {
+      resolve(data.result);
+    }).catch((err) => {
+      reject(err);
+    });
   });
 }
 
@@ -191,41 +142,6 @@ function updateDoc(dbName, doc) {
 const update = (dbName, doc) => updateDoc(dbName, doc);
 
 /**
- * Save a document in the database.
- * If _id is not provided, insert a new document.
- * If _id is provided and does not exist, insert a new document.
- * If _id is provided and exists, update an existing document.
- * @param {string} dbName - The database name.
- * @param {Object} doc - The document to be saved.
- * @returns {Promise} - The Promise object representing the result of the operation or failure.
- */
-const save = (dbName, doc) =>
-  new Promise(async (resolve, reject) => {
-    await createDb(dbName).catch((err) => reject(err));
-    // If the doc to be saved has _id, check if a doc with the _id exists
-    if (doc._id) {
-      cloudant('database')
-        .db.use(dbName)
-        .get(doc._id)
-        // If a doc with the _id exists, update it
-        .then(() => resolve(updateDoc(dbName, doc)))
-
-        .catch((err) => {
-          // If a doc with the _id does not exist, insert as a new doc
-          if (err.statusCode === 404) {
-            resolve(insertDoc(dbName, doc));
-          } else {
-            reject(err);
-          }
-        });
-    }
-    // If doc to be inserted does not have _id, insert as a new doc
-    else {
-      resolve(insertDoc(dbName, doc));
-    }
-  });
-
-/**
  * Delete a document from the database.
  * @param {string} dbName - The database name.
  * @param {string} id - The document id.
@@ -234,32 +150,21 @@ const save = (dbName, doc) =>
 const remove = (dbName, id) =>
   new Promise(async (resolve, reject) => {
     await createDb(dbName).catch((err) => reject(err));
-    cloudant('database')
-      .db.use(dbName)
-      .get(id)
-      .then((doc) => {
-        cloudant('database')
-          .db.use(dbName)
-          .destroy(id, doc._rev)
-          .then((data) => {
-            resolve(data);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      })
-      .catch((err) => {
-        reject(err);
-      });
+    
+    const service = cloudant();
+
+    service.deleteDocument({ db: dbName, docId: id }).then(data => {
+      resolve(data.result);
+    }).catch((err) => {
+      reject(err);
+    });
   });
 
 module.exports = {
   list,
   find,
-  view,
   get,
   insert,
   update,
-  save,
   remove,
 };
