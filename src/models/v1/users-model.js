@@ -2,7 +2,7 @@
 
 const bcrypt = require('bcryptjs');
 const Joi = require('joi');
-const db = require('../../../dao/cloudant');
+const db = require('../../dao/cloudant');
 
 const dbName = 'users';
 

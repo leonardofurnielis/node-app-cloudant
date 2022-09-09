@@ -5,10 +5,10 @@ const { CloudantV1 } = require('@ibm-cloud/cloudant');
 
 module.exports = (connection = 'CLOUDANT') => {
   if (
-    process.env[`${connection}_URI`] &&
+    process.env[`${connection}_URL`] &&
     process.env[`${connection}_APIKEY`]
   ) {
-    
+
     const authenticator = new IamAuthenticator({
       apikey: process.env[`${connection}_APIKEY`]
     });
@@ -17,7 +17,7 @@ module.exports = (connection = 'CLOUDANT') => {
       authenticator: authenticator
     });
 
-    service.setServiceUrl(process.env[`${connection}_URI`]);
+    service.setServiceUrl(process.env[`${connection}_URL`]);
 
     return service;
   }

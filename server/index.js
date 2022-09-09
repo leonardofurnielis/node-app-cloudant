@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 
 // Error handler
 const debug = process.env.LOGGER_LEVEL.toLowerCase() === 'debug' ? true : false;
-app.use(errorHandler({ debug, trace: true }));
+app.use(errorHandler({ debug }));
 
 if (!process.env.NODE_ENV === 'test') {
   securityLoader();

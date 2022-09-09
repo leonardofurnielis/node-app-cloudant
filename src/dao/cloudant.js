@@ -16,7 +16,7 @@ function createDb(dbName) {
       console.debug(`Database was created successfully: ${dbName}`);
       return resolve();
     }).catch((err) => {
-      if (err.statusCode !== 412) {
+      if (err.status !== 412) {
         return reject(err);
       }
       return resolve();
