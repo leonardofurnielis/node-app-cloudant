@@ -1,4 +1,4 @@
 apps:
-  - name: 'nodejs-cloudant'
+  - name: 'node-cloudant'
     script: './app.js'
     exec_mode: 'fork'
