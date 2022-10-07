@@ -15,7 +15,7 @@ const authenticate = async (req, res, next) => {
     const user = await findByCredentials(username, password);
     const payload = _.pick(user, ['_id', 'username', 'name', 'active']);
 
-    const privateKEY = fs.readFileSync(path.join(__dirname, '../../keys/jwtRS256.pem'));
+    const privateKEY = fs.readFileSync(path.join(__dirname, '../../__keys__/jwtRS256.pem'));
     const token = jwt.sign(payload, privateKEY, {
       expiresIn: '6h',
       algorithm: 'RS256',

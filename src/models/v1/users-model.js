@@ -2,7 +2,7 @@
 
 const bcrypt = require('bcryptjs');
 const Joi = require('joi');
-const db = require('../../orm/cloudant-orm');
+const db = require('../../odm/cloudant-odm');
 
 const dbName = 'users';
 
