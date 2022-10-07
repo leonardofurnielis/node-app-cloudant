@@ -11,7 +11,7 @@ console.info(`Logger Level: ${process.env.LOGGER_LEVEL}`);
 const server = http.createServer(app);
 
 server.on('onError', (err) => {
-  throw error;
+  throw err;
 });
 
 server.listen(Number(process.env.PORT || 3000), '0.0.0.0', () => {

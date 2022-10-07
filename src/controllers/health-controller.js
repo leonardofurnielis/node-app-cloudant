@@ -2,8 +2,6 @@
 
 const server = async (req, res, next) => {
   try {
-    const memory = process.memoryUsage();
-
     const healthcheck = {
       status: 'UP',
       uptime: Math.floor(process.uptime()),

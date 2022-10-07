@@ -9,18 +9,20 @@ const cloudant = require('../../config/datasources/cloudant-connector');
  */
 function createDb(dbName) {
   return new Promise((resolve, reject) => {
-
     const service = cloudant();
 
-    service.putDatabase({ db: dbName }).then(data => {
-      console.debug(`Database was created successfully: ${dbName}`);
-      return resolve();
-    }).catch((err) => {
-      if (err.status !== 412) {
-        return reject(err);
-      }
-      return resolve();
-    });
+    service
+      .putDatabase({ db: dbName })
+      .then(() => {
+        console.debug(`Database was created successfully: ${dbName}`);
+        return resolve();
+      })
+      .catch((err) => {
+        if (err.status !== 412) {
+          return reject(err);
+        }
+        return resolve();
+      });
   });
 }
 
@@ -35,11 +37,14 @@ const list = (dbName) =>
 
     const service = cloudant();
 
-    service.postAllDocs({ db: dbName, includeDocs: true }).then(data => {
-      resolve(data.result);
-    }).catch((err) => {
-      reject(err);
-    });
+    service
+      .postAllDocs({ db: dbName, includeDocs: true })
+      .then((data) => {
+        resolve(data.result);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 
 /**
@@ -54,13 +59,15 @@ const find = (dbName, selector = {}) =>
 
     const service = cloudant();
 
-    service.postFind({ db: dbName, selector }).then(data => {
-      resolve(data.result);
-    }).catch((err) => {
-      reject(err);
-    });
+    service
+      .postFind({ db: dbName, selector })
+      .then((data) => {
+        resolve(data.result);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
-
 
 /**
  * Get a document from the database, based on the document id.
@@ -74,11 +81,14 @@ const get = (dbName, id) =>
 
     const service = cloudant();
 
-    service.getDocument({ db: dbName, docId: id }).then(data => {
-      resolve(data.result);
-    }).catch((err) => {
-      reject(err);
-    });
+    service
+      .getDocument({ db: dbName, docId: id })
+      .then((data) => {
+        resolve(data.result);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 
 /**
@@ -94,11 +104,14 @@ function insertDoc(dbName, doc) {
 
     const service = cloudant();
 
-    service.postDocument({ db: dbName, document: doc }).then(data => {
-      resolve(data.result);
-    }).catch((err) => {
-      reject(err);
-    });
+    service
+      .postDocument({ db: dbName, document: doc })
+      .then((data) => {
+        resolve(data.result);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 }
 
@@ -121,14 +134,17 @@ const insert = (dbName, doc) => insertDoc(dbName, doc);
 function updateDoc(dbName, doc) {
   return new Promise(async (resolve, reject) => {
     await createDb(dbName).catch((err) => reject(err));
-    
+
     const service = cloudant();
 
-    service.postDocument({ db: dbName, document: doc }).then(data => {
-      resolve(data.result);
-    }).catch((err) => {
-      reject(err);
-    });
+    service
+      .postDocument({ db: dbName, document: doc })
+      .then((data) => {
+        resolve(data.result);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 }
 
@@ -150,14 +166,17 @@ const update = (dbName, doc) => updateDoc(dbName, doc);
 const remove = (dbName, id) =>
   new Promise(async (resolve, reject) => {
     await createDb(dbName).catch((err) => reject(err));
-    
+
     const service = cloudant();
 
-    service.deleteDocument({ db: dbName, docId: id }).then(data => {
-      resolve(data.result);
-    }).catch((err) => {
-      reject(err);
-    });
+    service
+      .deleteDocument({ db: dbName, docId: id })
+      .then((data) => {
+        resolve(data.result);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 
 module.exports = {
