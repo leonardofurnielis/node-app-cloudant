@@ -1,6 +1,6 @@
 # nodejs-cloudant
 
-![workflow](https://github.com/leonardofurnielis/nodejs-cloudant/actions/workflows/test-coverage.yml/badge.svg)
+![workflow](https://github.com/leonardofurnielis/nodejs-cloudant/actions/workflows/build-test.yml/badge.svg)
 [![codecov](https://codecov.io/gh/leonardofurnielis/nodejs-cloudant/branch/master/graph/badge.svg?token=5LTEJCG91W)](https://codecov.io/gh/leonardofurnielis/nodejs-cloudant)
 
 ## Table of Contents
