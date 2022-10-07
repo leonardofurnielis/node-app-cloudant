@@ -2,7 +2,7 @@
 
 const bcrypt = require('bcryptjs');
 const Joi = require('joi');
-const db = require('../../dao/cloudant');
+const db = require('../../orm/cloudant-orm');
 
 const dbName = 'users';
 
@@ -12,9 +12,9 @@ const schema = Joi.object({
   createdAt: Joi.date().timestamp().default(new Date()),
   updatedAt: Joi.date().timestamp().default(new Date()),
   username: Joi.string().alphanum().min(3).max(30).lowercase().required(),
-  name: Joi.string().min(3).required(),
+  name: Joi.string().min(2).required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(5).required(),
+  password: Joi.string().min(6).required(),
   active: Joi.boolean().default(true),
 });
 
@@ -43,8 +43,6 @@ const insert = (doc) =>
         doc.password = hash;
       });
     });
-
-    doc._id = `user:${doc.username}-${doc.email}`;
 
     return resolve(db.insert(dbName, doc));
   });

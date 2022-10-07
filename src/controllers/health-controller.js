@@ -7,11 +7,6 @@ const server = async (req, res, next) => {
     const healthcheck = {
       status: 'UP',
       uptime: Math.floor(process.uptime()),
-      node_version: process.version,
-      sys: {
-        mem_total: `${(memory.heapTotal * 10 ** -6).toFixed(2)}mb`,
-        mem_used: `${(memory.heapUsed * 10 ** -6).toFixed(2)}mb`,
-      },
     };
 
     return res.status(200).json(healthcheck);
