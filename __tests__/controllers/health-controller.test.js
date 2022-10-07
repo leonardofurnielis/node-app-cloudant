@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('supertest');
-const app = require('../../../config');
+const app = require('../../config');
 
 describe('GET /api/health', () => {
   test('When called, should return 200', () => {
