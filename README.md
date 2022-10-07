@@ -1,7 +1,7 @@
-# node-bootstrap-cloudant
+# nodejs-cloudant
 
-![workflow](https://github.com/leonardofurnielis/node-bootstrap-cloudant/actions/workflows/test-coverage.yml/badge.svg)
-[![codecov](https://codecov.io/gh/leonardofurnielis/node-bootstrap-cloudant/branch/master/graph/badge.svg?token=5LTEJCG91W)](https://codecov.io/gh/leonardofurnielis/node-bootstrap-cloudant)
+![workflow](https://github.com/leonardofurnielis/nodejs-cloudant/actions/workflows/test-coverage.yml/badge.svg)
+[![codecov](https://codecov.io/gh/leonardofurnielis/nodejs-cloudant/branch/master/graph/badge.svg?token=5LTEJCG91W)](https://codecov.io/gh/leonardofurnielis/nodejs-cloudant)
 
 ## Table of Contents
 
@@ -25,6 +25,6 @@ To run this code using Docker container execute the following commands into proj
 
 ```bash
 $ sh generating-rsa-key.sh
-$ docker build -t node-bootstrap-cloudant .
-$ docker run -p 8080:3000 -d node-bootstrap-cloudant
+$ docker build -t nodejs-cloudant .
+$ docker run -p 8080:3000 -d nodejs-cloudant
 ```

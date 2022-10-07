@@ -1,5 +1,5 @@
 {
-  "name": "node-bootstrap-cloudant",
+  "name": "nodejs-cloudant",
   "version": "2.2.0",
   "description": "",
   "main": "app.js",

@@ -1,4 +1,4 @@
 apps:
-  - name: 'node-bootstrap-cloudant'
+  - name: 'nodejs-cloudant'
     script: './app.js'
     exec_mode: 'fork'
