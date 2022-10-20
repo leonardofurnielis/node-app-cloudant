@@ -14,7 +14,7 @@
 To run this code in your computer execute the following commands into project root directory
 
 ```bash
-sh generating-rsa-key.sh
+./CA/generating-rsa-key.sh
 
 npm install
 npm start
