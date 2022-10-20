@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = () => {
-  const publicKEY = fs.readFileSync(path.join(__dirname, '../__keys__/jwtRSA256.pub.pem'));
+  const publicKEY = fs.readFileSync(path.join(__dirname, '../CA/jwtRSA256.pub.pem'));
   const opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
   opts.secretOrKey = publicKEY;
