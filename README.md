@@ -14,7 +14,7 @@
 To run this code in your computer execute the following commands into project root directory
 
 ```bash
-./CA/generating-rsa-key.sh
+./generate-rsa-key.sh
 
 npm install
 npm start
@@ -25,7 +25,8 @@ npm start
 To run this code using Podman container execute the following commands into project root directory
 
 ```bash
-sh generating-rsa-key.sh
+./generate-rsa-key.sh
+
 podman build -t node-cloudant .
 podman run -p 8080:3000 -d node-cloudant
 ```
