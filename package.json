@@ -27,7 +27,7 @@
     "express-transaction-id": "0.4.0",
     "helmet": "6.0.0",
     "joi": "17.6.2",
-    "jsonwebtoken": "8.5.1",
+    "jsonwebtoken": "9.0.0",
     "lodash": "4.17.21",
     "log4js": "6.6.1",
     "node-error-handler": "1.2.11",
