@@ -1,6 +1,6 @@
 'use strict';
 
-const cloudant = require('../../config/datasources/cloudant-connector');
+const cloudant = require('../config/datasources/cloudant-connector');
 
 /**
  * Create a new database, it not existing.

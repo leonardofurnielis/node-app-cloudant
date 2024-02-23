@@ -1,7 +1,7 @@
 'use strict';
 
 const bcrypt = require('bcryptjs');
-const db = require('../../src/odm/cloudant-odm');
+const db = require('../../odm/cloudant-odm');
 
 const dbName = 'users';
 

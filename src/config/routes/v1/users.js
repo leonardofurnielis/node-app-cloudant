@@ -1,5 +1,5 @@
 const express = require('express');
-const controller = require('../../../src/controllers/v1/users/users-controller');
+const controller = require('../../../controllers/v1/users/users-controller');
 // const authenticate = require('../../guards/jwt-authenticate');
 
 module.exports = (middlewares) => {
