@@ -1,6 +1,6 @@
 const express = require('express');
-const controller = require('../../../controllers/v1/users/users-controller');
-// const authenticate = require('../../guards/jwt-authenticate');
+const controller = require('../../../api/controllers/v1/users/users-controller');
+// const jwt_authenticate = require('../../authentications/jwt-auth');
 
 module.exports = (middlewares) => {
   const router = express.Router();
