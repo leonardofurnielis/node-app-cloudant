@@ -1,7 +1,7 @@
 {
   "name": "node-cloudant",
   "version": "3.0.0",
-  "description": "Node.js bootstrap for building production-ready RESTful application CloudantDB",
+  "description": "Node.js bootstrap for building production-ready RESTful application CloudantDb",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
